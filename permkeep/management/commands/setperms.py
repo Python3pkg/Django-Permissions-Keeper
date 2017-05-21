@@ -11,16 +11,16 @@ def set_perms (groups, output=True):
       group = Group(name=g['name'])
       group.save()
       if output:
-        print "Added Group: %s" % g['name']
+        print("Added Group: %s" % g['name'])
       
     else:
       if output:
-        print "Using Group: %s" % g['name']
+        print("Using Group: %s" % g['name'])
         
       group = query[0]
       
     for c in g['codes']:
-      for key, prefix in pmap.items():
+      for key, prefix in list(pmap.items()):
         if key in c[1]:
           codename = prefix + c[0]
           
@@ -29,17 +29,17 @@ def set_perms (groups, output=True):
             pm = Permission.objects.get(codename=codename)
             group.permissions.add(pm)
             if output:
-              print "  Added Permission: %s" % codename
+              print("  Added Permission: %s" % codename)
               
           else:
             if output:
-              print "  Skipping Permission: %s" % codename
+              print("  Skipping Permission: %s" % codename)
               
     if output:
-      print ""
+      print("")
       
   if output:
-    print "Set Permissions Complete\n\n"
+    print("Set Permissions Complete\n\n")
     
 class Command (BaseCommand):
   help = 'Creates groups and sets permissions'
